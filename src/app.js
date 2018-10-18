@@ -1,10 +1,10 @@
 import { createStore } from "redux";
 
 // step-03 define a reducer
-const reducer = function(state = 0, action) {
+const reducer = function(state = { books: [] }, action) {
 	switch (action.type) {
 		case "ADD_TODO":
-			return state + action.payload;
+			return { ...state, books: [...state.books, ...action.payload] };
 		default:
 			return state;
 	}
@@ -17,6 +17,32 @@ const store = createStore(reducer);
 store.subscribe(() => console.log("state from redux", store.getState()));
 
 // step-02  create an action and dispatch a store
-store.dispatch({ type: "ADD_TODO", payload: 1 });
-store.dispatch({ type: "ADD_TODO", payload: 1 });
-store.dispatch({ type: "ADD_TODO", payload: 1 });
+store.dispatch({
+	type: "ADD_TODO",
+	payload: [
+		{
+			_id: 1,
+			name: "GYM",
+			month: "NOVEMBER",
+			complete: false
+		},
+		{
+			_id: 2,
+			name: "STUDIES",
+			month: "NOVEMBER",
+			complete: false
+		}
+	]
+});
+
+store.dispatch({
+	type: "ADD_TODO",
+	payload: [
+		{
+			_id: 3,
+			name: "MEDITATE",
+			month: "NOVEMBER",
+			complete: false
+		}
+	]
+});
