@@ -20,6 +20,18 @@ const reducer = function(state = { books: [] }, action) {
 				...state,
 				books: state.books.filter(item => item._id !== action.payload)
 			};
+		case "UPDATE_TODO":
+			return {
+				...state,
+				books: state.books.map(
+					item =>
+						item._id === action.payload._id
+							? Object.assign({}, item, {
+									name: action.payload.name
+							  })
+							: item
+				)
+			};
 		default:
 			return state;
 	}
@@ -32,6 +44,9 @@ const store = createStore(reducer);
 store.subscribe(() => console.log("state from redux", store.getState()));
 
 // step-02  create an action and dispatch a store
+
+// Create opeartion in crud
+
 store.dispatch({
 	type: "ADD_TODO",
 	payload: [
@@ -62,6 +77,18 @@ store.dispatch({
 	]
 });
 
+// Deleting item in state
+
 store.dispatch({ type: "REMOVE_TODO", payload: 3 });
 
 store.dispatch({ type: "REMOVE_TODO", payload: 2 });
+
+// update opration in crud
+
+store.dispatch({
+	type: "UPDATE_TODO",
+	payload: {
+		_id: 1,
+		name: "Sports"
+	}
+});
