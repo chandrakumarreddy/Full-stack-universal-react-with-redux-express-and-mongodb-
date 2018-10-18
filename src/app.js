@@ -1,41 +1,7 @@
 import { createStore } from "redux";
-
+import { addTodo, deleteTodo, updateTodo } from "./actions/Todos";
+import reducer from "./reducers";
 // step-03 define a reducer
-const reducer = function(state = { books: [] }, action) {
-	switch (action.type) {
-		case "ADD_TODO":
-			return { ...state, books: [...state.books, ...action.payload] };
-		case "REMOVE_TODO":
-			// let arrayIndex = state.books.forEach((book, index) => {
-			// 	if (book._id === action.payload) return index;
-			// });
-			// return {
-			// 	...state,
-			// 	books: [
-			// 		...state.books.slice(0, arrayIndex),
-			// 		...state.books.slice(arrayIndex + 1)
-			// 	]
-			// };
-			return {
-				...state,
-				books: state.books.filter(item => item._id !== action.payload)
-			};
-		case "UPDATE_TODO":
-			return {
-				...state,
-				books: state.books.map(
-					item =>
-						item._id === action.payload._id
-							? Object.assign({}, item, {
-									name: action.payload.name
-							  })
-							: item
-				)
-			};
-		default:
-			return state;
-	}
-};
 
 // step-01 define a store
 const store = createStore(reducer);
@@ -47,9 +13,8 @@ store.subscribe(() => console.log("state from redux", store.getState()));
 
 // Create opeartion in crud
 
-store.dispatch({
-	type: "ADD_TODO",
-	payload: [
+store.dispatch(
+	addTodo([
 		{
 			_id: 1,
 			name: "GYM",
@@ -62,33 +27,31 @@ store.dispatch({
 			month: "NOVEMBER",
 			complete: false
 		}
-	]
-});
+	])
+);
 
-store.dispatch({
-	type: "ADD_TODO",
-	payload: [
+store.dispatch(
+	addTodo([
 		{
 			_id: 3,
 			name: "MEDITATE",
 			month: "NOVEMBER",
 			complete: false
 		}
-	]
-});
+	])
+);
 
 // Deleting item in state
 
-store.dispatch({ type: "REMOVE_TODO", payload: 3 });
+store.dispatch(deleteTodo(3));
 
-store.dispatch({ type: "REMOVE_TODO", payload: 2 });
+store.dispatch(deleteTodo(2));
 
 // update opration in crud
 
-store.dispatch({
-	type: "UPDATE_TODO",
-	payload: {
+store.dispatch(
+	updateTodo({
 		_id: 1,
 		name: "Sports"
-	}
-});
+	})
+);
