@@ -1,10 +1,37 @@
 import { createStore } from "redux";
 
 // step-03 define a reducer
-const reducer = function(state = 0, action) {
+const reducer = function(state = { books: [] }, action) {
 	switch (action.type) {
 		case "ADD_TODO":
-			return state + action.payload;
+			return { ...state, books: [...state.books, ...action.payload] };
+		case "REMOVE_TODO":
+			// let arrayIndex = state.books.forEach((book, index) => {
+			// 	if (book._id === action.payload) return index;
+			// });
+			// return {
+			// 	...state,
+			// 	books: [
+			// 		...state.books.slice(0, arrayIndex),
+			// 		...state.books.slice(arrayIndex + 1)
+			// 	]
+			// };
+			return {
+				...state,
+				books: state.books.filter(item => item._id !== action.payload)
+			};
+		case "UPDATE_TODO":
+			return {
+				...state,
+				books: state.books.map(
+					item =>
+						item._id === action.payload._id
+							? Object.assign({}, item, {
+									name: action.payload.name
+							  })
+							: item
+				)
+			};
 		default:
 			return state;
 	}
@@ -17,6 +44,51 @@ const store = createStore(reducer);
 store.subscribe(() => console.log("state from redux", store.getState()));
 
 // step-02  create an action and dispatch a store
-store.dispatch({ type: "ADD_TODO", payload: 1 });
-store.dispatch({ type: "ADD_TODO", payload: 1 });
-store.dispatch({ type: "ADD_TODO", payload: 1 });
+
+// Create opeartion in crud
+
+store.dispatch({
+	type: "ADD_TODO",
+	payload: [
+		{
+			_id: 1,
+			name: "GYM",
+			month: "NOVEMBER",
+			complete: false
+		},
+		{
+			_id: 2,
+			name: "STUDIES",
+			month: "NOVEMBER",
+			complete: false
+		}
+	]
+});
+
+store.dispatch({
+	type: "ADD_TODO",
+	payload: [
+		{
+			_id: 3,
+			name: "MEDITATE",
+			month: "NOVEMBER",
+			complete: false
+		}
+	]
+});
+
+// Deleting item in state
+
+store.dispatch({ type: "REMOVE_TODO", payload: 3 });
+
+store.dispatch({ type: "REMOVE_TODO", payload: 2 });
+
+// update opration in crud
+
+store.dispatch({
+	type: "UPDATE_TODO",
+	payload: {
+		_id: 1,
+		name: "Sports"
+	}
+});
