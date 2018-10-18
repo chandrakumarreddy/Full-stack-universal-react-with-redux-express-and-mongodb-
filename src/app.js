@@ -2,7 +2,9 @@ import { applyMiddleware, createStore } from "redux";
 import logger from "redux-logger";
 import { addTodo, deleteTodo, updateTodo } from "./actions/Todos";
 import reducer from "./reducers";
-
+import React from "react";
+import { render } from "react-dom";
+import BookList from "./components/pages/BookList";
 //middleware usage in redux
 
 const middleware = [logger];
@@ -14,6 +16,8 @@ const store = createStore(reducer, applyMiddleware(...middleware));
 store.subscribe(() => console.log("state from redux", store.getState()));
 
 // Create opeartion in crud
+
+render(<BookList />, document.getElementById("root"));
 
 store.dispatch(
 	addTodo([
