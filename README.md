@@ -1,30 +1,28 @@
-Three principles of REDUX :-
+Immutability of state :-
 
-    1) Single source of truth
+    state in redux is immutable.They are so that we can have history of different updated state
 
-    		Entire state of application is maintained in single state tree in redux store
+Pure Functions:
 
-    2) State is READ-ONLY
+    definition: Pure functions return ssmae result of same input is passed.
 
-            Only way to update the state is by dispatching an application
+    Properties of Pure functions:
 
-    3) reducers must be pure functions
+    		1) They depends only on arguments passed to it.
+    		2) They return same result if same argumnents are passed.
+    		3) They do not have any side effects.
 
-Operations that are expected to perform on arrays :-
+    Examples :-
 
-    DO'S:-
+    	example-01:-
 
-        1) concat
-        2) slice
-    	3) spread operation
+    	const fn1=(a)=> return a*a;
 
-    DON'TS:-
+    	fn1(10); // This is a pure function because it returns same result if same argument is passed
 
-    	1) Splice
-    	2) push	and pop
+    	example-02:-
 
-Operations that are expected to perform on objects :-
+    	let b=20;
+    	const fn2=(a)=> return a*b;
 
-    DO'S:-
-
-    	1) Object.assign
+    	fn2(10); // This is not a pure functions as it depends on variable which is not function scope
