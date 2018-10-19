@@ -2,7 +2,6 @@ import React from "react";
 import { Col, Well, Button, Row } from "react-bootstrap";
 
 const BookItem = props => {
-	console.log(props);
 	return (
 		<Well>
 			<Row>
@@ -10,7 +9,7 @@ const BookItem = props => {
 					<h6>{props.title}</h6>
 					<p>{props.desc}</p>
 					<h6>USD. {props.price}</h6>
-					<Button>Buy now</Button>
+					<Button bsStyle="primary">Buy now</Button>
 				</Col>
 			</Row>
 		</Well>
