@@ -5,6 +5,7 @@ import reducer from "./reducers";
 import React from "react";
 import { render } from "react-dom";
 import BookList from "./components/pages/BookList";
+import { Provider } from "react-redux";
 //middleware usage in redux
 
 const middleware = [logger];
@@ -17,7 +18,12 @@ store.subscribe(() => console.log("state from redux", store.getState()));
 
 // Create opeartion in crud
 
-render(<BookList />, document.getElementById("root"));
+render(
+	<Provider store={store}>
+		<BookList />
+	</Provider>,
+	document.getElementById("root")
+);
 
 store.dispatch(
 	addTodo([
@@ -45,19 +51,4 @@ store.dispatch(
 			complete: false
 		}
 	])
-);
-
-// Deleting item in state
-
-store.dispatch(deleteTodo(3));
-
-store.dispatch(deleteTodo(2));
-
-// update opration in crud
-
-store.dispatch(
-	updateTodo({
-		_id: 1,
-		name: "Sports"
-	})
 );
