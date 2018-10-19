@@ -22,7 +22,7 @@ const BookList = props => {
 	return (
 		<Grid>
 			<Row>
-				<Col xs={12} sm={6}>
+				<Col xs={12} sm={12} md={6}>
 					<BookForm />
 				</Col>
 				{renderBooks(props.books.books)}

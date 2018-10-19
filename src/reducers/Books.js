@@ -3,6 +3,7 @@ export default function(state = { books: [] }, action) {
 		case "GET_BOOKS":
 			return { ...state, books: [...state.books] };
 		case "ADD_BOOK":
+			console.log(action);
 			return { ...state, books: [...state.books, ...action.payload] };
 		case "REMOVE_BOOK":
 			// let arrayIndex = state.books.forEach((book, index) => {

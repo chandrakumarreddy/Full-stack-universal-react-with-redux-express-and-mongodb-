@@ -7,19 +7,39 @@ import {
 	ControlLabel,
 	Button
 } from "react-bootstrap";
+import { connect } from "react-redux";
+import { addBook } from "../../actions/Books";
 
 class BookForm extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			title: "",
+			desc: "",
+			price: ""
+		};
+	}
+	handleChange = e => this.setState({ [e.target.name]: e.target.value });
+	handleSubmit = e => {
+		e.preventDefault();
+		this.props.postData([this.state]);
+	};
 	render() {
 		return (
 			<Well>
 				<Panel>
-					<form style={{ padding: "20px" }}>
+					<form
+						style={{ padding: "20px" }}
+						onSubmit={this.handleSubmit.bind(this)}
+					>
 						<FormGroup controlId="title">
 							<ControlLabel>Title</ControlLabel>
 							<FormControl
 								type="text"
 								placeholder="Title"
-								ref="title"
+								value={this.state.title}
+								name="title"
+								onChange={this.handleChange}
 							/>
 						</FormGroup>
 						<FormGroup controlId="description">
@@ -27,7 +47,9 @@ class BookForm extends React.Component {
 							<FormControl
 								type="text"
 								placeholder="Description"
-								ref="desc"
+								value={this.state.desc}
+								name="desc"
+								onChange={this.handleChange}
 							/>
 						</FormGroup>
 						<FormGroup controlId="price">
@@ -35,10 +57,14 @@ class BookForm extends React.Component {
 							<FormControl
 								type="text"
 								placeholder="Price"
-								ref="price"
+								name="price"
+								value={this.state.price}
+								onChange={this.handleChange}
 							/>
 						</FormGroup>
-						<Button bsStyle="primary">Save Book</Button>
+						<Button type="submit" bsStyle="primary">
+							Save Book
+						</Button>
 					</form>
 				</Panel>
 			</Well>
@@ -46,4 +72,7 @@ class BookForm extends React.Component {
 	}
 }
 
-export default BookForm;
+export default connect(
+	null,
+	dispatch => ({ postData: data => dispatch(addBook(data)) })
+)(BookForm);
