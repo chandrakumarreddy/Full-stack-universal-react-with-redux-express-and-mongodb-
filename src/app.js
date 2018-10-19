@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore } from "redux";
 import logger from "redux-logger";
-import { addTodo, deleteTodo, updateTodo } from "./actions/Todos";
+import { getBooks, addBook, deleteBook, updateBook } from "./actions/Books";
 import reducer from "./reducers";
 import React from "react";
 import { render } from "react-dom";
@@ -26,29 +26,20 @@ render(
 );
 
 store.dispatch(
-	addTodo([
+	addBook([
 		{
 			_id: 1,
-			name: "GYM",
-			month: "NOVEMBER",
-			complete: false
+			title: "The man who knows infinity",
+			desc:
+				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi mollitia quod nostrum, vel, neque vero odio in autem velit, distinctio, error. Provident, odio ea quod enim atque a tenetur mollitia.",
+			price: 33.33
 		},
 		{
 			_id: 2,
-			name: "STUDIES",
-			month: "NOVEMBER",
-			complete: false
-		}
-	])
-);
-
-store.dispatch(
-	addTodo([
-		{
-			_id: 3,
-			name: "MEDITATE",
-			month: "NOVEMBER",
-			complete: false
+			title: "Brief answers to big questions",
+			desc:
+				"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non, velit, quos. Praesentium minima nostrum, facilis aspernatur sint harum id consequatur molestiae eaque a numquam modi quam libero dicta, quae, et.",
+			price: 55.5
 		}
 	])
 );

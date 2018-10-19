@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import addTodos from "./addTodos";
+import books from "./Books";
 
 export default combineReducers({
-	addTodo: addTodos
+	books
 });
