@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Grid, Row, Col, Button } from "react-bootstrap";
 import BookItem from "./BookItem";
 import BookForm from "./BookForm";
+import CartItem from "./CartItem";
 
 const renderBooks = function(books) {
 	if (books) {
@@ -21,6 +22,9 @@ const renderBooks = function(books) {
 const BookList = props => {
 	return (
 		<Grid>
+			<Row>
+				<CartItem />
+			</Row>
 			<Row>
 				<Col xs={12} sm={12} md={6}>
 					<BookForm />

@@ -14,7 +14,7 @@ const middleware = [logger];
 const store = createStore(reducer, applyMiddleware(...middleware));
 
 //step-04 listening to store and changes to state update
-store.subscribe(() => console.log("state from redux", store.getState()));
+//store.subscribe(() => console.log("state from redux", store.getState()));
 
 // Create opeartion in crud
 

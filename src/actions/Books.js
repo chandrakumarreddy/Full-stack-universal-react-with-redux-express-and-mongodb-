@@ -11,6 +11,13 @@ export function addBook(book) {
 	};
 }
 
+export function addToCart(book) {
+	return {
+		type: "ADD_TO_CART",
+		payload: book
+	};
+}
+
 export function deleteBook(id) {
 	return { type: "REMOVE_BOOK", payload: id };
 }
