@@ -18,6 +18,10 @@ export function addToCart(book) {
 	};
 }
 
+export function deleteFromCart(id) {
+	return { type: "DELETE_ITEM_FROM_CART", payload: id };
+}
+
 export function deleteBook(id) {
 	return { type: "REMOVE_BOOK", payload: id };
 }

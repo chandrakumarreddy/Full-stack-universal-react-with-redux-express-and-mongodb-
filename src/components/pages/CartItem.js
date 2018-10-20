@@ -10,12 +10,13 @@ import {
 	Label,
 	ButtonGroup
 } from "react-bootstrap";
+import { deleteFromCart } from "../../actions/Books";
 
 class CartItem extends React.Component {
 	renderItems = () => {
 		if (this.props.cart[0]) {
 			return this.props.cart.map(item => (
-				<Well key={item.id}>
+				<Well key={item._id}>
 					<Row>
 						<Col xs={12} sm={4}>
 							<h6>{item.title}</h6>
@@ -38,7 +39,14 @@ class CartItem extends React.Component {
 									+
 								</Button>
 								<span />
-								<Button bsStyle="danger" bsSize="small">
+								<Button
+									bsStyle="danger"
+									bsSize="small"
+									onClick={this.deleteItem.bind(
+										this,
+										item._id
+									)}
+								>
 									DELETE
 								</Button>
 							</ButtonGroup>
@@ -47,6 +55,9 @@ class CartItem extends React.Component {
 				</Well>
 			));
 		}
+	};
+	deleteItem = id => {
+		this.props.deleteCartItem(id);
 	};
 	render() {
 		return (
@@ -62,4 +73,9 @@ class CartItem extends React.Component {
 	}
 }
 
-export default connect(state => ({ cart: state.cart.cart }))(CartItem);
+export default connect(
+	state => ({ cart: state.cart.cart }),
+	dispatch => ({
+		deleteCartItem: id => dispatch(deleteFromCart(id))
+	})
+)(CartItem);

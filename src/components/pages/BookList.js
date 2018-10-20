@@ -10,6 +10,7 @@ const renderBooks = function(books) {
 		return books.map(item => (
 			<Col xs={12} sm={6} md={4} key={item._id}>
 				<BookItem
+					_id={item._id}
 					title={item.title}
 					desc={item.desc}
 					price={item.price}

@@ -7,7 +7,7 @@ class BookItem extends React.Component {
 	handleBuy = () => {
 		const book = [
 			{
-				id: this.props.id,
+				_id: this.props._id,
 				title: this.props.title,
 				description: this.props.description,
 				price: this.props.price
