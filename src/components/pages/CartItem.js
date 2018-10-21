@@ -105,9 +105,12 @@ class CartItem extends React.Component {
 				</Panel.Heading>
 				<Panel.Body>{this.renderItems()}</Panel.Body>
 				<Panel.Footer>
-					<h6>Total amount :- </h6>
+					<h6>
+						Total amount :- usd.
+						{this.props.cartTotal}
+					</h6>
 					<Button bsStyle="success" onClick={this.handleShow}>
-						Checkout
+						Proceed to checkout
 					</Button>
 				</Panel.Footer>
 				<Modal show={this.state.show} onHide={this.handleClose}>
@@ -130,7 +133,7 @@ class CartItem extends React.Component {
 }
 
 export default connect(
-	state => ({ cart: state.cart.cart }),
+	state => ({ cart: state.cart.cart, cartTotal: state.cart.totalPrice }),
 	dispatch => ({
 		deleteCartItem: id => dispatch(deleteFromCart(id)),
 		updateItem: id => dispatch(updateCart(id))
