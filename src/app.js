@@ -4,6 +4,8 @@ import reducer from "./reducers";
 import React from "react";
 import { render } from "react-dom";
 import BookList from "./components/pages/BookList";
+import Menu from "./components/pages/Menu.js";
+import Footer from "./components/pages/Footer";
 import { Provider } from "react-redux";
 //middleware usage in redux
 
@@ -19,7 +21,11 @@ const store = createStore(reducer, applyMiddleware(...middleware));
 
 render(
 	<Provider store={store}>
-		<BookList />
+		<div>
+			<Menu />
+			<BookList />
+			<Footer />
+		</div>
 	</Provider>,
 	document.getElementById("root")
 );

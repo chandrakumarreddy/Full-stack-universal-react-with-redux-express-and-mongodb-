@@ -23,9 +23,7 @@ const renderBooks = function(books) {
 const BookList = props => {
 	return (
 		<Grid>
-			<Row>
-				<CartItem />
-			</Row>
+			<CartItem />
 			<Row>
 				<Col xs={12} sm={12} md={6}>
 					<BookForm />
