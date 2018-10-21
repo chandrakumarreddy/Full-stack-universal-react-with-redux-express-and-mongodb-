@@ -6,13 +6,32 @@ import {
 	Row,
 	Col,
 	Button,
-	Grid,
 	Label,
-	ButtonGroup
+	ButtonGroup,
+	Modal
 } from "react-bootstrap";
 import { deleteFromCart, updateCart } from "../../actions/Books";
 
 class CartItem extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.handleShow = this.handleShow.bind(this);
+		this.handleClose = this.handleClose.bind(this);
+
+		this.state = {
+			show: false
+		};
+	}
+
+	handleClose() {
+		this.setState({ show: false });
+	}
+
+	handleShow() {
+		this.setState({ show: true });
+	}
+
 	renderItems = () => {
 		if (this.props.cart[0]) {
 			return this.props.cart.map(item => (
@@ -80,14 +99,32 @@ class CartItem extends React.Component {
 
 	render() {
 		return (
-			<Grid>
-				<Panel header="Cart" bsStyle="primary">
-					<Panel.Heading>
-						<Panel.Title>Cart</Panel.Title>
-					</Panel.Heading>
-					<Panel.Body>{this.renderItems()}</Panel.Body>
-				</Panel>
-			</Grid>
+			<Panel header="Cart" bsStyle="primary">
+				<Panel.Heading>
+					<Panel.Title>Cart</Panel.Title>
+				</Panel.Heading>
+				<Panel.Body>{this.renderItems()}</Panel.Body>
+				<Panel.Footer>
+					<h6>Total amount :- </h6>
+					<Button bsStyle="success" onClick={this.handleShow}>
+						Checkout
+					</Button>
+				</Panel.Footer>
+				<Modal show={this.state.show} onHide={this.handleClose}>
+					<Modal.Header closeButton>
+						<Modal.Title>Thank you!</Modal.Title>
+					</Modal.Header>
+					<Modal.Body>
+						<h6>Thanks for ordering</h6>
+						<p>
+							You will receive email for once order is confirmed
+						</p>
+					</Modal.Body>
+					<Modal.Footer>
+						<Button onClick={this.handleClose}>Close</Button>
+					</Modal.Footer>
+				</Modal>
+			</Panel>
 		);
 	}
 }
