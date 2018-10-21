@@ -35,9 +35,12 @@ export default function(
 			// 		...state.books.slice(arrayIndex + 1)
 			// 	]
 			// };
+
 			return {
 				...state,
-				books: state.books.filter(item => item._id !== action.payload)
+				books: state.books.filter(
+					item => item._id !== Number(action.payload)
+				)
 			};
 		case "UPDATE_BOOK":
 			return {
