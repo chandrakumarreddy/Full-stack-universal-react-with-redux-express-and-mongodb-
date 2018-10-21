@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Col, Well, Button, Row } from "react-bootstrap";
-import { addToCart } from "../../actions/Books";
+import { addToCart, updateCart } from "../../actions/Books";
 
 class BookItem extends React.Component {
 	handleBuy = () => {
@@ -10,10 +10,26 @@ class BookItem extends React.Component {
 				_id: this.props._id,
 				title: this.props.title,
 				description: this.props.description,
-				price: this.props.price
+				price: this.props.price,
+				quantity: 1
 			}
 		];
-		this.props.addItem(book);
+		if (this.props.cart.length > 0) {
+			let item = null;
+			for (let i = 0; i < this.props.cart.length; i++) {
+				if (this.props.cart[i]._id === this.props._id) {
+					item = this.props._id;
+					break;
+				}
+			}
+			if (item) {
+				this.props.updateItem({ id: item, qty: 1 });
+			} else {
+				this.props.addItem(book);
+			}
+		} else {
+			this.props.addItem(book);
+		}
 	};
 	render() {
 		return (
@@ -35,5 +51,8 @@ class BookItem extends React.Component {
 
 export default connect(
 	state => ({ cart: state.cart.cart }),
-	dispatch => ({ addItem: book => dispatch(addToCart(book)) })
+	dispatch => ({
+		addItem: book => dispatch(addToCart(book)),
+		updateItem: id => dispatch(updateCart(id))
+	})
 )(BookItem);

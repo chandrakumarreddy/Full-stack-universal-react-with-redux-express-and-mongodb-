@@ -7,6 +7,22 @@ export default function(state = { cart: [] }, action) {
 				...state,
 				cart: state.cart.filter(item => item._id !== action.payload)
 			};
+		case "UPDATE_ITEM_CART":
+			return {
+				...state,
+				cart: state.cart.map(
+					item =>
+						item._id === action.payload.id
+							? Object.assign({}, item, {
+									quantity:
+										item.quantity === 0 &&
+										action.payload.qty < 0
+											? 0
+											: item.quantity + action.payload.qty
+							  })
+							: item
+				)
+			};
 		default:
 			return state;
 	}
